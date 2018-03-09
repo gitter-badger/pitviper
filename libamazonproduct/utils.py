@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#
 # Copyright (c) 2018 Buza Aleksandar <privatni@aleksandarbuza.cr.rs>
 #
 # Permission to use, copy, modify, and distribute this software for any

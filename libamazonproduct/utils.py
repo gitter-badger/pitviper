@@ -82,7 +82,7 @@ def query_to_sign(query: str, country: str) -> str:
         raise InvalidAmazonCountryError
 
 
-def hmac_sign(aws_secret_key: str, country: str, query: str) -> str:
+def hmac_sign_query(aws_secret_key: str, country: str, query: str) -> str:
     message = query_to_sign(query=query, country=country)
     sign = hmac.new(key=str_to_bytes(aws_secret_key),
                     msg=str_to_bytes(message),

@@ -4,6 +4,5 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/900d7464acb946758f96eda2c50324bd)](https://app.codacy.com/app/alekbuza/pitviper?utm_source=github.com&utm_medium=referral&utm_content=alekbuza/pitviper&utm_campaign=badger)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/alekbuza/pitviper.svg?columns=all)](https://waffle.io/alekbuza/pitviper)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dc95d932964b4085ac74e1903965fc62)](https://www.codacy.com/app/alekbuza/pitviper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alekbuza/pitviper&amp;utm_campaign=Badge_Grade)
 
 [Waffle.io:  Join link](https://waffle.io/alekbuza/pitviper/join)

@@ -55,8 +55,10 @@ def bytes_to_quoted_base64(data: bytes) -> str:
 
 
 def query_from_parameters(params: dict) -> str:
-    return '&'.join([quote(param).replace('%7E', '~') + '=' + quote(params[param]).replace('%7E', '~') for param in sorted(params.keys())])
-
+    return '&'.join(['{0}={1}'.format(
+        quote(param).replace('%7E', '~'),
+        quote(params[param]).replace('%7E', '~')
+        ) for param in sorted(params.keys())])
 
 def get_iso8601_timestamp() -> str:
     return strftime(__ISO_8601_FORMAT, gmtime())

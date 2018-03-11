@@ -1,3 +1,4 @@
-# libamazonproduct
+# Pitviper
 
-## A Python wrapper for the Amazon Product Advertising API.
+
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/alekbuza/pitviper.svg?columns=all)](https://waffle.io/alekbuza/pitviper)

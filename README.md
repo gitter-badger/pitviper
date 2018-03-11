@@ -1,6 +1,8 @@
 # Pitviper
 
-![alt text](http://moziru.com/images/serpent-clipart-graphic-7.png)
+<p align="center">
+![alt text](https://raw.githubusercontent.com/alekbuza/pitviper/160a5f030c753ffdeb073f13701ac0f13e2e25c2/assets/snake.png)
+</p>
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/alekbuza/pitviper.svg?columns=all)](https://waffle.io/alekbuza/pitviper)
 

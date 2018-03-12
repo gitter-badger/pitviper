@@ -31,7 +31,7 @@ __CCTLDS = {
 __HTTP_METHOD = 'GET'
 __UNFROMATED_URL_WITHOUT_ENDPOINT = 'webservices.amazon.{cctld}'
 __UNFORMATED_URL_WITH_ENDPOINT = 'webservices.amazon.{cctld}/onca/xml'
-__ENDPOINT= '/onca/xml'
+__ENDPOINT = '/onca/xml'
 
 __UNFORMATED_QUERY_TO_SIGN = '{method}\n{url}\n{endpoint}\n{query}'
 __UNFROMATED_REQUEST_URL = 'http://{url}?{query}&Signature={signature}'
@@ -42,7 +42,7 @@ __VERSION = '2015-10-01'
 __ITEMLOOKUP_PARAM_OPERATION = 'ItemLookup'
 
 __ITEMLOOKUP_ASIN_PARAM_IDTYPE = 'ASIN'
-__ITEMLOOKUP_ASIN_PARAM_DEFAULT_RESPONSE_GROUP = (
+__ITEMLOOKUP_ASIN_PARAM_RESPONSE_GROUP = (
     'Images,ItemAttributes,Large,OfferFull,Offers,OfferSummary,Reviews'
 )
 

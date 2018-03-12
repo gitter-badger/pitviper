@@ -14,8 +14,6 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
-from typing import Union
-
 from time import gmtime
 from time import strftime
 
@@ -25,6 +23,8 @@ from hashlib import sha256
 from hmac import new as hmac_new
 
 from urllib.parse import quote
+
+from xmltodict import parse as convert_xml_to_dict
 
 from pitviper.config import __CCTLDS
 from pitviper.config import __HTTP_METHOD
@@ -60,6 +60,7 @@ def query_from_parameters(params: dict) -> str:
         quote(params[param]).replace('%7E', '~')
         ) for param in sorted(params.keys())])
 
+
 def get_iso8601_timestamp() -> str:
     return strftime(__ISO_8601_FORMAT, gmtime())
 
@@ -94,3 +95,11 @@ def generate_request_url(query: str, signature: str, country: str) -> str:
 
     else:
         raise PitviperInvalidAmazonCountryError
+
+
+def xml_to_dict(xml: bytes) -> dict:
+    try:
+        return convert_xml_to_dict(xml)
+
+    except Exception as e:
+        print(e)

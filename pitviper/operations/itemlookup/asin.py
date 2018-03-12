@@ -24,7 +24,7 @@ from pitviper.config import __VERSION
 
 from pitviper.config import __ITEMLOOKUP_PARAM_OPERATION
 from pitviper.config import __ITEMLOOKUP_ASIN_PARAM_IDTYPE
-from pitviper.config import __ITEMLOOKUP_ASIN_PARAM_DEFAULT_RESPONSE_GROUP
+from pitviper.config import __ITEMLOOKUP_ASIN_PARAM_RESPONSE_GROUP
 
 from pitviper.utils import bytes_to_quoted_base64
 from pitviper.utils import get_iso8601_timestamp
@@ -34,7 +34,7 @@ from pitviper.utils import hmac_sign_query
 from pitviper.utils import generate_request_url
 
 
-predefined_params = {
+__predefined_params = {
     'Service': __SERVICE,
     'Version': __VERSION,
     'Operation': __ITEMLOOKUP_PARAM_OPERATION,
@@ -45,7 +45,7 @@ predefined_params = {
 def sign_asin_lookup_url(aws_access_key: str, aws_secret_key: str,
                          aws_associate_tag: str, country: str, asin: str,
                          response_group: Union[str, bool] = False) -> str:
-    params = predefined_params
+    params = __predefined_params
     params['Timestamp'] = get_iso8601_timestamp()
     params['ItemId'] = asin
     params['AWSAccessKeyId'] = aws_access_key
@@ -55,7 +55,7 @@ def sign_asin_lookup_url(aws_access_key: str, aws_secret_key: str,
         params['ResponseGroup'] = response_group
 
     else:
-        params['ResponseGroup'] = __ITEMLOOKUP_ASIN_PARAM_DEFAULT_RESPONSE_GROUP
+        params['ResponseGroup'] = __ITEMLOOKUP_ASIN_PARAM_RESPONSE_GROUP
 
     query = query_from_parameters(params=params)
     query_to_sign = prepare_query_to_sign(query=query, country=country)

@@ -16,3 +16,7 @@
 
 class PitviperInvalidAmazonCountryError(Exception):
     pass
+
+
+class PitviperInvalidResponseError(Exception):
+    pass

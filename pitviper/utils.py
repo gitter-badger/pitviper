@@ -13,6 +13,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+from operator import getitem
+from functools import reduce
 
 from time import gmtime
 from time import strftime
@@ -24,18 +26,23 @@ from hmac import new as hmac_new
 
 from urllib.parse import quote
 
-from xmltodict import parse as convert_xml_to_dict
+from xmltodict import parse as xml_to_dict
 
-from pitviper.config import __CCTLDS
-from pitviper.config import __HTTP_METHOD
-from pitviper.config import __UNFROMATED_URL_WITHOUT_ENDPOINT
-from pitviper.config import __UNFORMATED_URL_WITH_ENDPOINT
-from pitviper.config import __ENDPOINT
-from pitviper.config import __UNFROMATED_REQUEST_URL
-from pitviper.config import __UNFORMATED_QUERY_TO_SIGN
-from pitviper.config import __ISO_8601_FORMAT
+from pitviper.config.core import __CCTLDS
+from pitviper.config.core import __HTTP_METHOD
+from pitviper.config.core import __UNFROMATED_URL_WITHOUT_ENDPOINT
+from pitviper.config.core import __UNFORMATED_URL_WITH_ENDPOINT
+from pitviper.config.core import __ENDPOINT
+from pitviper.config.core import __UNFROMATED_REQUEST_URL
+from pitviper.config.core import __UNFORMATED_QUERY_TO_SIGN
+from pitviper.config.core import __ISO_8601_FORMAT
+
+
+from pitviper.config.item import __ITEM_STRING_PATHS
+from pitviper.config.item import __ITEM_LIST_DICT_KEY_PATHS
 
 from pitviper.errors import PitviperInvalidAmazonCountryError
+from pitviper.errors import PitviperInvalidResponseError
 
 
 def str_to_bytes(data: str) -> bytes:
@@ -97,9 +104,53 @@ def generate_request_url(query: str, signature: str, country: str) -> str:
         raise PitviperInvalidAmazonCountryError
 
 
-def xml_to_dict(xml: bytes) -> dict:
+def response_to_dict(xml: bytes) -> dict:
     try:
-        return convert_xml_to_dict(xml)
+        return xml_to_dict(xml)
 
     except Exception as e:
-        print(e)
+        raise PitviperInvalidResponse
+
+
+def __safe_parse_decorator(func):
+    def wrapper(*args, **kwargs):
+        try:
+            result = func(*args, **kwargs)
+
+            if result is not None:
+                return result
+
+            else:
+                return 'None'
+
+        except KeyError as exception:
+            return 'None'
+
+    return wrapper
+
+
+@__safe_parse_decorator
+def __parse_full_value(item: dict, path: str):
+        return reduce(getitem, path.split('.'), item)
+
+
+@__safe_parse_decorator
+def __parse_list_dict_key(item: dict, options: str):
+    result = []
+
+    for item in __parse_full_value(item, options['list']):
+        result.append(item[options['dict']][options['key']])
+
+    return result
+
+
+def item_parser(item: dict) -> dict:
+    parsed = {}
+
+    for key, value in __ITEM_STRING_PATHS.items():
+        parsed[key] = __parse_full_value(item=item, path=value)
+
+    for key, value in __ITEM_LIST_DICT_KEY_PATHS.items():
+        parsed[key] = __parse_list_dict_key(item=item, options=value)
+
+    return parsed
